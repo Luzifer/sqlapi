@@ -1,7 +1,7 @@
 FROM golang:alpine as builder
 
-COPY . /go/src/github.com/Luzifer/mysqlapi
-WORKDIR /go/src/github.com/Luzifer/mysqlapi
+COPY . /go/src/github.com/Luzifer/sqlapi
+WORKDIR /go/src/github.com/Luzifer/sqlapi
 
 RUN set -ex \
  && apk add --update git \
@@ -19,11 +19,11 @@ RUN set -ex \
  && apk --no-cache add \
       ca-certificates
 
-COPY --from=builder /go/bin/mysqlapi /usr/local/bin/mysqlapi
+COPY --from=builder /go/bin/sqlapi /usr/local/bin/sqlapi
 
 EXPOSE 3000
 
-ENTRYPOINT ["/usr/local/bin/mysqlapi"]
+ENTRYPOINT ["/usr/local/bin/sqlapi"]
 CMD ["--"]
 
 # vim: set ft=Dockerfile:

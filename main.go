@@ -15,9 +15,10 @@ import (
 
 var (
 	cfg = struct {
+		DBType         string `flag:"db-type" default:"" description:"Database type to connect to"`
+		DSN            string `flag:"dsn" default:"" description:"DSN to connect to (see README for formats)"`
 		Listen         string `flag:"listen" default:":3000" description:"Port/IP to listen on"`
 		LogLevel       string `flag:"log-level" default:"info" description:"Log level (debug, info, warn, error, fatal)"`
-		DSN            string `flag:"dsn" default:"" description:"MySQL DSN to connect to: [username[:password]@][protocol[(address)]]/dbname[?param1=value1&...&paramN=valueN]"`
 		VersionAndExit bool   `flag:"version" default:"false" description:"Prints current version and exits"`
 	}{}
 
@@ -46,7 +47,7 @@ func main() {
 	}
 
 	if cfg.VersionAndExit {
-		fmt.Printf("mysqlapi %s\n", version)
+		fmt.Printf("sqlapi %s\n", version) //nolint:forbidigo
 		os.Exit(0)
 	}
 
@@ -62,7 +63,7 @@ func main() {
 	logrus.WithFields(logrus.Fields{
 		"addr":    cfg.Listen,
 		"version": version,
-	}).Info("mysqlapi started")
+	}).Info("sqlapi started")
 
 	if err = server.ListenAndServe(); err != nil {
 		logrus.WithError(err).Fatal("listening for HTTP")
