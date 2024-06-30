@@ -48,8 +48,8 @@ INFO[0000] sqlapi started                              addr="127.0.0.1:7895" ver
   - For parameters see [github.com/go-sql-driver/mysql](https://pkg.go.dev/github.com/go-sql-driver/mysql#readme-dsn-data-source-name)
 - **Postgres / CockroachDB**
   - `postgres://jack:secret@pg.example.com:5432/mydb?sslmode=verify-ca`
-  - `user=jack password=secret host=pg.example.com port=5432 dbname=mydb sslmode=verify-ca`
   - For parameters see [github.com/jackc/pgx/v5](https://pkg.go.dev/github.com/jackc/pgx/v5@v5.6.0/pgconn#ParseConfig)
+  - The `key=value anotherkey=anothervalue` format is **not** supported 
 
 ### Request format
 

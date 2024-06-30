@@ -3,9 +3,9 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"net/url"
 
 	"github.com/go-sql-driver/mysql"
-	"github.com/jackc/pgx/v5"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
@@ -25,13 +25,14 @@ func connect(database string) (db *sql.DB, err error) {
 		return db, nil
 
 	case "postgres", "pg", "crdb":
-		connInfo, err := pgx.ParseConfig(cfg.DSN)
+		u, err := url.Parse(cfg.DSN)
 		if err != nil {
-			return nil, fmt.Errorf("parsing DSN: %w", err)
+			return nil, fmt.Errorf("parsing DSN URL: %w", err)
 		}
-		connInfo.Database = database
 
-		if db, err = sql.Open("pgx", connInfo.ConnString()); err != nil {
+		u.Path = fmt.Sprintf("/%s", database)
+
+		if db, err = sql.Open("pgx", u.String()); err != nil {
 			return nil, fmt.Errorf("opening db connection: %w", err)
 		}
 
