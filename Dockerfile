@@ -1,4 +1,4 @@
-FROM golang:alpine as builder
+FROM golang:1.24-alpine AS builder
 
 COPY . /go/src/github.com/Luzifer/sqlapi
 WORKDIR /go/src/github.com/Luzifer/sqlapi
@@ -11,13 +11,16 @@ RUN set -ex \
       -modcacherw \
       -trimpath
 
-FROM alpine:latest
 
-LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
+FROM alpine:3.21
+
+LABEL org.opencontainers.image.authors="Knut Ahlers <knut@ahlers.me>" \
+      org.opencontainers.image.source="https://git.luzifer.io/luzifer/sqlapi"
 
 RUN set -ex \
  && apk --no-cache add \
-      ca-certificates
+      ca-certificates \
+      tzdata
 
 COPY --from=builder /go/bin/sqlapi /usr/local/bin/sqlapi
 
