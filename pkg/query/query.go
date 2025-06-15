@@ -39,8 +39,13 @@ func RunQuery(db *sql.DB, q types.Query) (types.QueryResult, error) {
 		)
 
 		for _, col := range colTypes {
+			colT := col.ScanType()
+			if n, ok := col.Nullable(); ok && n && colT.Kind() != reflect.Ptr {
+				colT = reflect.PointerTo(colT)
+			}
+
 			scanNames = append(scanNames, col.Name())
-			scanSet = append(scanSet, reflect.New(col.ScanType()).Interface())
+			scanSet = append(scanSet, reflect.New(colT).Interface())
 		}
 
 		if err = rows.Err(); err != nil {
