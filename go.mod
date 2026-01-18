@@ -2,7 +2,7 @@ module github.com/Luzifer/sqlapi
 
 go 1.24.0
 
-toolchain go1.25.5
+toolchain go1.25.6
 
 require (
 	github.com/Luzifer/rconfig/v2 v2.6.0
