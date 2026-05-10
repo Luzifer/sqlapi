@@ -2,9 +2,12 @@
 package query
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"reflect"
+
+	"github.com/sirupsen/logrus"
 
 	"github.com/Luzifer/sqlapi/pkg/types"
 )
@@ -14,16 +17,21 @@ import (
 // runs the query using the connection stored inside the Adapter.
 // The result then is parsed into the QueryResult form using the
 // field names as keys and values as typed values.
-func RunQuery(db *sql.DB, q types.Query) (types.QueryResult, error) {
+func RunQuery(ctx context.Context, db *sql.DB, q types.Query) (types.QueryResult, error) {
 	qs, err := q.QueryString()
 	if err != nil {
 		return nil, fmt.Errorf("getting query-string: %w", err)
 	}
 
-	rows, err := db.Query(qs, q.Args()...)
+	rows, err := db.QueryContext(ctx, qs, q.Args()...)
 	if err != nil {
 		return nil, fmt.Errorf("executing query: %w", err)
 	}
+	defer func() {
+		if err := rows.Close(); err != nil {
+			logrus.WithError(err).Error("closing query")
+		}
+	}()
 
 	var respForQuery types.QueryResult
 

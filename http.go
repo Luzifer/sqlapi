@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Luzifer/sqlapi/pkg/query"
-	"github.com/Luzifer/sqlapi/pkg/types"
 	"github.com/gofrs/uuid"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
+
+	"github.com/Luzifer/sqlapi/pkg/query"
+	"github.com/Luzifer/sqlapi/pkg/types"
 )
 
 type (
@@ -71,7 +72,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for i, qry := range req {
-		if res, err = query.RunQuery(db, qry); err != nil {
+		if res, err = query.RunQuery(r.Context(), db, qry); err != nil {
 			connError(err, fmt.Sprintf("executing query %d", i), http.StatusInternalServerError)
 			return
 		}

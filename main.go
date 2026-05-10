@@ -1,3 +1,4 @@
+// SQL-API Server
 package main
 
 import (
@@ -6,11 +7,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/gorilla/mux"
-	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
-
 	"github.com/Luzifer/rconfig/v2"
+	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -28,12 +27,12 @@ var (
 func initApp() error {
 	rconfig.AutoEnv(true)
 	if err := rconfig.ParseAndValidate(&cfg); err != nil {
-		return errors.Wrap(err, "parsing cli options")
+		return fmt.Errorf("parsing cli options: %w", err)
 	}
 
 	l, err := logrus.ParseLevel(cfg.LogLevel)
 	if err != nil {
-		return errors.Wrap(err, "parsing log-level")
+		return fmt.Errorf("parsing log-level: %w", err)
 	}
 	logrus.SetLevel(l)
 
@@ -47,7 +46,7 @@ func main() {
 	}
 
 	if cfg.VersionAndExit {
-		fmt.Printf("sqlapi %s\n", version) //nolint:forbidigo
+		fmt.Printf("sqlapi %s\n", version) //nolint:forbidigo // printing version to stdout is fine
 		os.Exit(0)
 	}
 
