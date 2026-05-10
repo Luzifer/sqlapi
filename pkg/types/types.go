@@ -1,5 +1,5 @@
 // Package types defines datatypes to work with
-package types
+package types //revive:disable-line:package-naming // kept for historical purposes
 
 import (
 	"fmt"
