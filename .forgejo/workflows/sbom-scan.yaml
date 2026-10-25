@@ -1,0 +1,18 @@
+name: SBOM Scan
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+
+jobs:
+  sbom-scan:
+    runs-on: forgejo
+
+    steps:
+      - uses: luzifer/actions/dependencytrack-scan@f6f6393dfae6fe7dd661768268859302e4ba5bcb # develop
+        with:
+          token: ${{ secrets.DT_TOKEN }}
+          url: https://dt.hub.luzifer.io
