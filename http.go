@@ -47,7 +47,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "no-cache")
-	w.Header().Set("X-Conn-ID", connID)
+	w.Header().Set("X-Conn-Id", connID)
 
 	db, err := connect(database)
 	if err != nil {
