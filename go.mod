@@ -5,7 +5,7 @@ go 1.26.0
 toolchain go1.27.3
 
 require (
-	github.com/Luzifer/rconfig/v2 v2.6.2
+	github.com/Luzifer/rconfig/v2 v2.6.3
 	github.com/go-sql-driver/mysql v1.10.1
 	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/gorilla/mux v1.8.1
@@ -20,7 +20,7 @@ require (
 	github.com/jackc/puddle/v2 v2.2.3 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
-	go.yaml.in/yaml/v3 v3.0.5 // indirect
+	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/sync v0.23.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/text v0.42.0 // indirect
