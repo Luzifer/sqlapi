@@ -6,7 +6,7 @@ toolchain go1.27.4
 
 require (
 	github.com/Luzifer/rconfig/v2 v2.6.3
-	github.com/go-sql-driver/mysql v1.10.1
+	github.com/go-sql-driver/mysql v1.10.2
 	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/gorilla/mux v1.8.1
 	github.com/jackc/pgx/v5 v5.13.0
